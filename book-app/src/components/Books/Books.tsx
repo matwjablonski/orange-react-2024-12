@@ -1,10 +1,6 @@
 import { Book } from './Book';
-import { Book as BookType } from './data';
 import PropTypes from 'prop-types';
-
-type BooksProps = {
-  books: BookType[];
-}
+import { BooksProps } from './types';
 
 export const BooksList = ({ books }: BooksProps) => {
   return (

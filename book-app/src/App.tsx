@@ -1,9 +1,9 @@
-import React, { ChangeEvent, InputHTMLAttributes, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { books as dataSource } from './data';
-import { BooksList } from './Books';
-import { Header } from './Header';
-import { Footer } from './Footer';
-import { ContactForm } from './ContactForm';
+import { BooksList } from './components/Books';
+import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
+import { ContactForm } from './components/Forms/ContactForm';
 
 function App() {
   const [ values, setValues ] = useState({

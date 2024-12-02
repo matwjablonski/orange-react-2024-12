@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Book as BookType } from './data'
 import PropTypes from 'prop-types';
+import { BookProps } from './types';
 
-type BookProps = {} & Pick<BookType, 'author' | 'title' | 'publicationDate'>;
 
 export const Book = ({ title, author, publicationDate }: BookProps) => {
   const [isRead, setIsRead] = useState(false);

@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-
-type HeaderProps = {
-  name: string;
-  onLogin?: () => void;
-}
+import { User } from '../User/User';
+import { HeaderProps } from './types';
 
 export const Header = ({ name, onLogin }: HeaderProps) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -16,7 +13,12 @@ export const Header = ({ name, onLogin }: HeaderProps) => {
 
   return (
     <header>
-      <p>Witaj w naszej aplikacji książkowej {isUserLoggedIn ? <>[<strong>{name}</strong>]</> : ''}</p>
+      <p>Witaj w naszej aplikacji książkowej</p>
+      {isUserLoggedIn ? <User>
+        <div>
+          Jesteś zalogowany jako: <strong>{name}</strong>
+        </div>
+      </User> : null}
       <button type="button" onClick={handleLogin}>{isUserLoggedIn ? 'Wyloguj' : 'Zaloguj'}</button>
     </header>
   )

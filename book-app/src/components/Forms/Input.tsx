@@ -1,9 +1,4 @@
-import { ChangeEvent, InputHTMLAttributes } from 'react';
-
-type InputProps = {
-  label: string;
-  handleChange(e: ChangeEvent): void;
-} & InputHTMLAttributes<HTMLInputElement>
+import { InputProps } from './types';
 
 export const Input = ({label, handleChange, ...rest}: InputProps) => {
   return (
