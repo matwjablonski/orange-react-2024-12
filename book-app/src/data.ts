@@ -4,7 +4,7 @@ export type Book = {
   publicationDate: string | Date;
   category: 'crime' | 'romance' | 'biography';
   related: string[];
-}
+};
 
 export const books: Book[] = [
   {

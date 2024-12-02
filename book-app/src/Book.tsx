@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Book as BookType } from './data'
+import PropTypes from 'prop-types';
 
 type BookProps = {} & Pick<BookType, 'author' | 'title' | 'publicationDate'>;
 
@@ -21,4 +22,10 @@ export const Book = ({ title, author, publicationDate }: BookProps) => {
       </div>
     </li>
   )
+}
+
+Book.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  publicationDate: PropTypes.string.isRequired,
 }
