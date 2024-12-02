@@ -5,10 +5,10 @@ type BooksProps = {
   books: BookType[];
 }
 
-export const Books = ({ books }: BooksProps) => {
+export const BooksList = ({ books }: BooksProps) => {
   return (
     <ul>
-      {books.map(book => (<Book {...book} />))}
+      {books.map((book) => (<Book key={`${book.title}-${book.author}`} {...book} />))}
     </ul>
   )
 }

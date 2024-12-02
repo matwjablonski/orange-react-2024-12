@@ -1,6 +1,6 @@
 import React from 'react';
-import { books } from './data';
-import { Books } from './Books';
+import { books as dataSource } from './data';
+import { BooksList } from './Books';
 import { Header } from './Header';
 import { Footer } from './Footer';
 
@@ -9,8 +9,8 @@ function App() {
     <div>
       <Header />
       <main>
-        <Books
-          books={books}
+        <BooksList
+          books={dataSource}
         />
       </main>
       <Footer />
