@@ -1,19 +1,19 @@
 import React from 'react';
-import { Test } from './Test';
+import { books } from './data';
+import { Books } from './Books';
+import { Header } from './Header';
+import { Footer } from './Footer';
 
 function App() {
   return (
     <div>
-      <header>Witaj w naszej aplikacji książkowej</header>
-      <Test address="dasd" />
+      <Header />
       <main>
-        <ul>
-          <li>W pustyni i w puszczy</li>
-          <li>Hyperion</li>
-          <li>Mistrz czystego kodu</li>
-        </ul>
+        <Books
+          books={books}
+        />
       </main>
-      <footer>Aplikacja przygotowana przez Mateusza Jabłońskiego</footer>
+      <Footer />
     </div>
   );
 }
