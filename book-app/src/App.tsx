@@ -7,7 +7,7 @@ import { Footer } from './Footer';
 function App() {
   return (
     <div>
-      <Header />
+      <Header name="Mateuszu" />
       <main>
         <BooksList
           books={dataSource}
