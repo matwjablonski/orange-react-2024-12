@@ -1,8 +1,9 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, InputHTMLAttributes, useState } from 'react';
 import { books as dataSource } from './data';
 import { BooksList } from './Books';
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { ContactForm } from './ContactForm';
 
 function App() {
   const [ values, setValues ] = useState({
@@ -33,6 +34,7 @@ function App() {
           books={dataSource}
         />
       </main>
+      <ContactForm />
       <Footer />
     </div>
   );
