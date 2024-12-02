@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactNode } from 'react';
+import { InputHTMLAttributes, PropsWithChildren, ReactNode } from 'react';
 
 type Field = {
   fieldType: 'input' | 'textarea';
@@ -7,16 +7,16 @@ type Field = {
 
 type FormProps = {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  fields: ReactNode[];
+  // fields: ReactNode[];
 
-  additionalFields?: Field[];
+  // additionalFields?: Field[];
 }
 
-export const Form = ({ fields, onSubmit, additionalFields }: FormProps) => {
+export const Form = ({ onSubmit, children }: PropsWithChildren<FormProps>) => {
   return (
     <form onSubmit={onSubmit}>
-      {fields}
-      {additionalFields && additionalFields.map((field) => {
+      {children}
+      {/* {additionalFields && additionalFields.map((field) => {
         if (field.fieldType === 'input') {
           return (
             <label key={field.name}>
@@ -25,7 +25,7 @@ export const Form = ({ fields, onSubmit, additionalFields }: FormProps) => {
             </label>
           )
         }
-      })}
+      })} */}
       <button type="submit">Wyślij</button>
     </form>
   )

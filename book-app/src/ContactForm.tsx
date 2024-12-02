@@ -21,10 +21,9 @@ export const ContactForm = () => {
         e.preventDefault();
         console.log('Wysłano formularz', values);
       }}
-      fields={[
-        <Input key="name-field" label="Imię" type="text" name="name" required handleChange={handleChange} value={values.name} />,
-        <Input key="lastName-field" label="Naziwsko" type="text" name="lastName" required handleChange={handleChange} value={values.lastName} />
-      ]}
-    />
+    >
+      <Input key="name-field" label="Imię" type="text" name="name" required handleChange={handleChange} value={values.name} />
+      <Input key="lastName-field" label="Naziwsko" type="text" name="lastName" required handleChange={handleChange} value={values.lastName} />
+    </Form>
   );
 };
