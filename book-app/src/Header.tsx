@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 
 type HeaderProps = {
   name: string;
+  onLogin?: () => void;
 }
 
-export const Header = ({ name }: HeaderProps) => {
+export const Header = ({ name, onLogin }: HeaderProps) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const handleLogin = () => {
     setIsUserLoggedIn((prevState) => !prevState);
+    onLogin && onLogin();
   };
 
   return (
