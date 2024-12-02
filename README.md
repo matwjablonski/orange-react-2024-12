@@ -1,4 +1,4 @@
-# Warsztaty Typescript
+# Warsztaty React
 
 Cześć, miło mi Cię powitać na warsztatach z Reacta. Przez najbliższe 3 dni będziemy pracować razem i rozwijać Twoje umiejętności. W razie jakichkolwiek pytań zapraszam serdecznie do kontaktu.
 
