@@ -1,31 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Reader } from './types';
 import useLog from '../../hooks/useLog';
+import { useRequest } from '../../hooks/useRequest';
 
 export const Readers = () => {
-  const [readers, setReaders] = useState<Reader[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [readersAreVisible, setReadersAreVisible] = useState(false);
   const { log } = useLog();
-
-  const fetchReaders = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/users');
-      const data: Reader[] = await response.json();
-
-      setTimeout(() => {
-        setReaders(data);
-        setIsLoading(false);
-        log('Pobrano czytelników');
-      }, 2000);
-      
-    } catch (error) {}
-  }
-
-  useEffect(() => {
-    fetchReaders();
-  }, [])
+  const { isLoading, data: readers, error } = useRequest<Reader[]>('https://jsonplaceholder.typicode.com/users');
 
   const handleSwitchReadersVisibility = () => {
     setReadersAreVisible((prev) => !prev);

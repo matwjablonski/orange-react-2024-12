@@ -1,10 +1,42 @@
-export const useRequest = (url: string) => {
+import { useEffect, useState } from 'react';
 
-  // useState useEffect
+type ReturnUseRequest<T> = {
+  isLoading: boolean;
+  data: T;
+  error: Error | null;
+}
+
+export const useRequest = <T = []>(url: string): ReturnUseRequest<T> => {
+  const [data, setData] = useState<T>({} as T);
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchData = async () => {
+    setLoading(true)
+    try {
+      const response = await fetch(url);
+      const data: T = await response.json();
+      
+      setData(data);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error);
+      } else {
+        setError(new Error('An error occurred'));
+      }
+      
+    } finally {
+      setLoading(false)
+    }
+  };
+
+  useEffect(() => {
+    fetchData()
+  }, []);
 
   return {
-    isLoading: false, // stan ładowania
-    error: null, // błąd (null lub Error)
-    data: [], // dane z API
-  } // dane z API
+    isLoading,
+    error,
+    data,
+  }
 }

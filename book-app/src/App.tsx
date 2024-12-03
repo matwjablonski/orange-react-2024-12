@@ -4,6 +4,9 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { ContactForm } from './components/Forms/ContactForm';
 import { Readers } from './components/Readers/Readers';
+import { Route, Routes } from 'react-router';
+import { Home } from './components/Home/Home';
+import { BookDetails } from './components/BookDetails/BookDetails';
 
 function App() {
   const [ values, setValues ] = useState({
@@ -40,10 +43,14 @@ function App() {
           Pole kontrolowane:
           <input value={values.lastName} name="lastName" onChange={handleChange} />
         </label>
-        <Readers />
-        <BooksList />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/books" element={<BooksList />} />
+          <Route path="/readers" element={<Readers />} />
+          <Route path="/books/:id" element={<BookDetails />} />
+          <Route path="/contact" element={<ContactForm />} />
+        </Routes>
       </main>
-      <ContactForm />
       <Footer />
     </div>
   );
