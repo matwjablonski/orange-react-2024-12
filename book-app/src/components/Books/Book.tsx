@@ -2,10 +2,9 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BookProps } from './types';
 
-
 export const Book = ({ title, author, publicationDate }: BookProps) => {
   const [isRead, setIsRead] = useState(false);
-  const [votes, setVotes] = useState<number>(() => Math.floor(author.length * 2 / 5));
+  const [votes, setVotes] = useState(() => Math.floor(author.length * 2 / 5));
 
   const handleRead = () => {
     setIsRead((prevState) => !prevState);

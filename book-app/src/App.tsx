@@ -32,7 +32,7 @@ function App() {
 
   return (
     <div>
-      <Header name="Mateuszu" onLogin={() => alert('zalogowano!')} />
+      <Header name="Mateuszu" onLogin={() => console.log('zalogowano!')} />
       <main>
         <form ref={uncontrolledRef}>
         <label>
