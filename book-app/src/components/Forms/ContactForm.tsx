@@ -17,6 +17,10 @@ export const ContactForm = () => {
     });
   }
 
+  useEffect(() => {
+    firstInputRef.current?.focus();
+  }, [])
+
   return (
     <Form 
       onSubmit={(e) => {
@@ -25,7 +29,7 @@ export const ContactForm = () => {
         setValues(cleanForm(values))
       }}
     >
-      <Input key="name-field" label="Imię" type="text" name="name" required handleChange={handleChange} value={values.name}/>
+      <Input key="name-field" label="Imię" type="text" name="name" required handleChange={handleChange} value={values.name} ref={firstInputRef}/>
       <Input key="lastName-field" label="Naziwsko" type="text" name="lastName" required handleChange={handleChange} value={values.lastName} />
     </Form>
   );
