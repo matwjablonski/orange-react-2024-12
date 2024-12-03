@@ -1,26 +1,17 @@
 import { Book } from './Book';
 import { useEffect, useRef, useState } from 'react';
 import { BookType } from './types';
+import { useRequest } from '../../hooks/useRequest';
 
 export const BooksList = () => {
   const listRef = useRef<HTMLUListElement>(null);
   const [message, setMessage] = useState('');
   const [myBooks, setMyBooks] = useState<BookType[]>([]);
-
-  const fetchBooks = async () => {
-    try {
-      const response = await fetch('/data.json');
-      const data: BookType[] = await response.json();
-
-      setMyBooks(data);
-    } catch (error) {
-
-    }
-  }
+  const { isLoading, data, error } = useRequest('/data.json');
 
   useEffect(() => {
-    fetchBooks();
-  }, []);
+    setMyBooks(data);
+  }, [data]);
 
   const filterBooks = (category: 'crime' | 'romance' | 'biography') => {
     const newBooksArray = myBooks.filter((book) => book.category === category);
@@ -68,11 +59,19 @@ export const BooksList = () => {
     setMyBooks(newBooksArray);
   }
 
+  if (isLoading) {
+    return <p>Trwa ładowanie danych...</p>
+  }
+
+  if (error) {
+    return <p>Wystąpił błąd: {error.message}</p>
+  }
+
   return (
     <div>
       {message && <p>{message}</p>}
       <ul ref={listRef}>
-        {myBooks.map((book) => (<Book key={`${book.title}-${book.author}`} {...book} onRemove={handleRemoveBook} />))}
+        {myBooks.length && myBooks.map((book) => (<Book key={`${book.title}-${book.author}`} {...book} onRemove={handleRemoveBook} />))}
       </ul>
     </div>
   )
