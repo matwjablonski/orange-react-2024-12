@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import { books as dataSource } from './data';
 import { BooksList } from './components/Books';
 import { Header } from './components/Header/Header';
@@ -10,6 +10,7 @@ function App() {
     name: '',
     lastName: '',
   })
+  const uncontrolledRef = useRef<HTMLFormElement>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({
@@ -18,14 +19,23 @@ function App() {
     });
   }
 
+  const handleUncontrolledChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
+    if (e.target.value.length > 5) {
+      uncontrolledRef.current?.reset();
+    }
+  }
+
   return (
     <div>
       <Header name="Mateuszu" onLogin={() => alert('zalogowano!')} />
       <main>
+        <form ref={uncontrolledRef}>
         <label>
           Pole niekontrolowane:
-          <input />
+          <input onChange={handleUncontrolledChange}/>
         </label>
+        </form>
         <label>
           Pole kontrolowane:
           <input value={values.lastName} name="lastName" onChange={handleChange} />

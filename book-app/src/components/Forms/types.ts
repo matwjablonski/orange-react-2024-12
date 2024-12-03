@@ -12,4 +12,5 @@ export type FormProps = {
 export type InputProps = {
   label: string;
   handleChange(e: ChangeEvent): void;
+  ref?: any;
 } & InputHTMLAttributes<HTMLInputElement>
