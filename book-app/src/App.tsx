@@ -3,6 +3,7 @@ import { BooksList } from './components/Books';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { ContactForm } from './components/Forms/ContactForm';
+import { Readers } from './components/Readers/Readers';
 
 function App() {
   const [ values, setValues ] = useState({
@@ -39,6 +40,7 @@ function App() {
           Pole kontrolowane:
           <input value={values.lastName} name="lastName" onChange={handleChange} />
         </label>
+        <Readers />
         <BooksList />
       </main>
       <ContactForm />
