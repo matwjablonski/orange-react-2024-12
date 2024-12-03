@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { books as dataSource } from './data';
 import { BooksList } from './components/Books';
 import { Header } from './components/Header/Header';
@@ -25,6 +25,10 @@ function App() {
       uncontrolledRef.current?.reset();
     }
   }
+
+  useEffect(() => {
+    // tutaj mamy wyrenderowany komponent => componentDidMount
+  }, []);
 
   return (
     <div>
