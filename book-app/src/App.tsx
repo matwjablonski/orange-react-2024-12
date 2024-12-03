@@ -55,3 +55,15 @@ function App() {
 }
 
 export default App;
+
+class ClassComponent extends React.Component {
+  componentDidMount() {
+    // tutaj mamy wyrenderowany komponent => componentDidMount
+  }
+
+  render() {
+    return (
+      <div>dasd</div>
+    )
+  }
+}
