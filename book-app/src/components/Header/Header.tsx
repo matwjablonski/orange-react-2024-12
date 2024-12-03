@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { User } from '../User/User';
 import { HeaderProps } from './types';
+import { Nav } from '../Nav/Nav';
 
 export const Header = ({ name, onLogin }: HeaderProps) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -22,6 +23,7 @@ export const Header = ({ name, onLogin }: HeaderProps) => {
 
   return (
     <header>
+      <Nav />
       <p>Witaj w naszej aplikacji książkowej</p>
       {isUserLoggedIn ? <User>
         <div onClick={() => setValue(v => v + 1)}>

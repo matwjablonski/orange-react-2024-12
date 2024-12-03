@@ -44,11 +44,15 @@ function App() {
           <input value={values.lastName} name="lastName" onChange={handleChange} />
         </label>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/books" element={<BooksList />} />
-          <Route path="/readers" element={<Readers />} />
-          <Route path="/books/:id" element={<BookDetails />} />
-          <Route path="/contact" element={<ContactForm />} />
+          <Route path="app">
+            <Route index element={<Home />} />
+            <Route path="books" element={<BooksList />} />
+            <Route path="readers" element={<Readers />} />
+          </Route>
+
+          <Route path="page">
+            <Route path="contact" element={<ContactForm />} />
+          </Route>
         </Routes>
       </main>
       <Footer />
