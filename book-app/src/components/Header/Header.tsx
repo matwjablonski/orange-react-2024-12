@@ -13,10 +13,10 @@ export const Header = ({ name, onLogin }: HeaderProps) => {
   };
 
   useEffect(() => {
-    console.log('Zaktualizowano komponent Header');
+    console.log('2');
 
     return () => {
-      console.log('Header component unmount');
+      console.log('1');
     }
   }, [value]);
 

@@ -19,6 +19,28 @@ export const BooksList = ({ books }: BooksProps) => {
     }
   }, []);
 
+  const generateDocumentTitle = (booksLength: number): string => {
+    let bookInfo = '';
+
+    if (booksLength === 1) {
+      bookInfo = '1 książkę';
+    }
+
+    if (booksLength > 1 && booksLength < 5) {
+      bookInfo = `${booksLength} książki`;
+    }
+
+    if (booksLength > 4) {
+      bookInfo = `${booksLength} książek`;
+    }
+
+    return `Twój zbiór książek liczy ${bookInfo}`;
+  }
+
+  useEffect(() => {
+    document.title = generateDocumentTitle(books.length);
+  }, [books.length]);
+
   return (
     <div>
       {message && <p>{message}</p>}
