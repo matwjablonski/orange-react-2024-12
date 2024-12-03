@@ -1,5 +1,4 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { books as dataSource } from './data';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import { BooksList } from './components/Books';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
@@ -26,10 +25,6 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    // tutaj mamy wyrenderowany komponent => componentDidMount
-  }, []);
-
   return (
     <div>
       <Header name="Mateuszu" onLogin={() => console.log('zalogowano!')} />
@@ -44,9 +39,7 @@ function App() {
           Pole kontrolowane:
           <input value={values.lastName} name="lastName" onChange={handleChange} />
         </label>
-        <BooksList
-          books={dataSource}
-        />
+        <BooksList />
       </main>
       <ContactForm />
       <Footer />

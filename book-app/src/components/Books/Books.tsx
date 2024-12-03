@@ -1,16 +1,26 @@
 import { Book } from './Book';
-import PropTypes from 'prop-types';
-import { BooksProps } from './types';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { BookType } from './types';
 
-export const BooksList = ({ books }: BooksProps) => {
+export const BooksList = () => {
   const listRef = useRef<HTMLUListElement>(null);
   const [message, setMessage] = useState('');
-  const [myBooks, setMyBooks] = useState(books);
+  const [myBooks, setMyBooks] = useState<BookType[]>([]);
+
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch('./data.json');
+      const data: BookType[] = await response.json();
+
+      setMyBooks(data);
+    } catch (error) {
+
+    }
+  }
 
   useEffect(() => {
-    setMyBooks(books);
-  }, [books]);
+    fetchBooks();
+  }, []);
 
   const filterBooks = (category: 'crime' | 'romance' | 'biography') => {
     const newBooksArray = myBooks.filter((book) => book.category === category);
@@ -28,7 +38,7 @@ export const BooksList = ({ books }: BooksProps) => {
         setMessage('Zbieraj dalej');
       }
     }
-  }, []);
+  }, [myBooks.length]);
 
   const generateDocumentTitle = (booksLength: number): string => {
     let bookInfo = '';
@@ -49,11 +59,13 @@ export const BooksList = ({ books }: BooksProps) => {
   }
 
   useEffect(() => {
-    document.title = generateDocumentTitle(books.length);
-  }, [books.length]);
+    document.title = generateDocumentTitle(myBooks.length);
+  }, [myBooks.length]);
 
   const handleRemoveBook = (id: number) => {
+    const newBooksArray = myBooks.filter((book) => book.id !== id);
 
+    setMyBooks(newBooksArray);
   }
 
   return (
@@ -66,12 +78,12 @@ export const BooksList = ({ books }: BooksProps) => {
   )
 }
 
-BooksList.propTypes = {
-  books: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    publicationDate: PropTypes.string.isRequired,
-    category: PropTypes.oneOf(['crime', 'romance', 'biography']).isRequired,
-    related: PropTypes.arrayOf(PropTypes.string).isRequired,
-  })).isRequired,
-}
+// BooksList.propTypes = {
+//   books: PropTypes.arrayOf(PropTypes.shape({
+//     title: PropTypes.string.isRequired,
+//     author: PropTypes.string.isRequired,
+//     publicationDate: PropTypes.string.isRequired,
+//     category: PropTypes.oneOf(['crime', 'romance', 'biography']).isRequired,
+//     related: PropTypes.arrayOf(PropTypes.string).isRequired,
+//   })).isRequired,
+// }

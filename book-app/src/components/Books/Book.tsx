@@ -23,7 +23,8 @@ export const Book = ({ title, author, publicationDate, id, onRemove }: BookProps
         { isRead && <div><em>Przeczytana</em></div> }
         {title} by {author} ({publicationDate as string})
         <button type="button" style={buttonStyles} onClick={handleRead}>{isRead ? 'Usuń z przeczytanych' : 'Dodaj do przeczytanych'}</button>
-        <button type="button" onClick={handleUpdateVotes}>Głosuj na tę pozycję</button>      
+        <button type="button" onClick={handleUpdateVotes}>Głosuj na tę pozycję</button>
+        <button type="button" onClick={() => onRemove(id)}>Usuń</button>    
       </div>
     </li>
   )
