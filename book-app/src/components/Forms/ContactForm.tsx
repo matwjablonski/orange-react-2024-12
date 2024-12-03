@@ -10,6 +10,10 @@ export const ContactForm = () => {
     lastName: '',
   });
 
+  const handleFocus = () => {
+    firstInputRef.current?.focus();
+  }
+  
   const handleChange = (e: any) => {
     setValues({
       ...values,
@@ -17,37 +21,36 @@ export const ContactForm = () => {
     });
   }
 
-  useEffect(() => {
-    firstInputRef.current?.focus();
-  }, [])
-
   return (
-    <Form 
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log('Wysłano formularz', values);
-        setValues(cleanForm(values))
-      }}
-    >
-      <Input
-        key="name-field"
-        label="Imię"
-        type="text"
-        name="name"
-        required
-        handleChange={handleChange}
-        value={values.name}
-        ref={firstInputRef}
-      />
-      <Input
-        key="lastName-field"
-        label="Naziwsko"
-        type="text"
-        name="lastName"
-        required
-        handleChange={handleChange}
-        value={values.lastName}
-      />
-    </Form>
+    <div>
+      <button onClick={handleFocus}>Napisz do nas</button>
+      <Form 
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log('Wysłano formularz', values);
+          setValues(cleanForm(values))
+        }}
+      >
+        <Input
+          key="name-field"
+          label="Imię"
+          type="text"
+          name="name"
+          required
+          handleChange={handleChange}
+          value={values.name}
+          ref={firstInputRef}
+        />
+        <Input
+          key="lastName-field"
+          label="Naziwsko"
+          type="text"
+          name="lastName"
+          required
+          handleChange={handleChange}
+          value={values.lastName}
+        />
+      </Form>
+    </div>
   );
 };
