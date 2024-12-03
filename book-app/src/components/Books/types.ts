@@ -4,4 +4,6 @@ export type BooksProps = {
   books: BookType[];
 }
 
-export type BookProps = {} & Pick<BookType, 'author' | 'title' | 'publicationDate'>;
+export type BookProps = { 
+  onRemove(id: number): void
+} & Pick<BookType, 'author' | 'title' | 'publicationDate' | 'id'>;

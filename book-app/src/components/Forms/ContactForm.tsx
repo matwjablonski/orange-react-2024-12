@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Form } from './Form'
 import { Input } from './Input'
 import { cleanForm } from '../../utils/form';
@@ -20,6 +20,10 @@ export const ContactForm = () => {
       [e.target.name]: e.target.value,
     });
   }
+
+  // useLayoutEffect(() => {
+  //   firstInputRef.current?.focus();
+  // }, []);
 
   return (
     <div>

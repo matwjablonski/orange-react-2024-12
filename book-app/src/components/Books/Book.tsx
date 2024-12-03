@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BookProps } from './types';
 
-export const Book = ({ title, author, publicationDate }: BookProps) => {
+export const Book = ({ title, author, publicationDate, id, onRemove }: BookProps) => {
   const [isRead, setIsRead] = useState(false);
   const [votes, setVotes] = useState(() => Math.floor(author.length * 2 / 5));
 
