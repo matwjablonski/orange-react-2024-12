@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import styled from 'styled-components';
 import { ThemeContext } from '../../contexts/ThemeContext';
 
@@ -14,8 +14,8 @@ export const UserNameFooter = () => (
   <Em>Mateusza Jabłońskiego</Em>
 )
 
-export const Footer = ({ className }: FooterProps) => {
-  const { theme }= useContext(ThemeContext);
+export const Footer = memo(({ className }: FooterProps) => {
+  const { theme } = useContext(ThemeContext);
 
   return (
     <footer className={className}>
@@ -23,7 +23,7 @@ export const Footer = ({ className }: FooterProps) => {
       <p>Theme: {theme}</p>
     </footer>
   )
-}
+});
 
 export const StyledFooter = styled(Footer)`
   background-color: red;

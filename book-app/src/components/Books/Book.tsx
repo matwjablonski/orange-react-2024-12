@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { BookProps } from './types';
 import { Button, ButtonReverse } from '../Button/Button';
@@ -11,11 +11,11 @@ export const Book = ({ title, author, publicationDate, id, onRemove }: BookProps
     setIsRead((prevState) => !prevState);
   };
 
-  const handleUpdateVotes = () => {
+  const handleUpdateVotes = useCallback(() => {
     setVotes((prevState) => prevState + 1);
-  }
+  }, []);
 
-  // const buttonStyles = { backgroundColor: 'beige', color: 'darkblue' };
+  const buttonStyles = useMemo(() => ({ backgroundColor: 'beige', color: 'darkblue' }), [votes]);
 
   return (
     <li>

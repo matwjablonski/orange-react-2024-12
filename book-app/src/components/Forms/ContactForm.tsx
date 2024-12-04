@@ -3,7 +3,7 @@ import { Form } from './Form'
 import { Input } from './Input'
 import { cleanForm } from '../../utils/form';
 
-const ContactForm = () => {
+export const ContactForm = () => {
   const firstInputRef = useRef<HTMLInputElement>(null);
   const [ values, setValues ] = useState({
     name: '',
@@ -58,5 +58,3 @@ const ContactForm = () => {
     </div>
   );
 };
-
-export default ContactForm;

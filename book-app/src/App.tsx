@@ -11,8 +11,8 @@ import { Modal } from './components/Modal/Modal';
 import { User, UserContext } from './contexts/UserContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 
-const BooksList = lazy(() => import('./components/Books/Books'));
-const ContactForm = lazy(() => import('./components/Forms/ContactForm'));
+const BooksList = lazy(() => import('./components/Books/Books'))
+const ContactForm = lazy(() => import('./components/Forms/ContactForm').then(module => ({ default: module.ContactForm })));
 
 function App() {
   const [ values, setValues ] = useState({
