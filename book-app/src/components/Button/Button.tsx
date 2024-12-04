@@ -6,11 +6,11 @@ export const Button = styled.button`
   background-color: #007bff;
 `
 
-// type ButtonReverseProps = {
-//   size: 'big' | 'small';
-// } & React.HTMLProps<HTMLButtonElement>
+type ButtonReverseProps = {
+  size: 'big' | 'small';
+};
 
-export const ButtonReverse = styled<any>(Button)`
+export const ButtonReverse = styled(Button)<ButtonReverseProps>`
   ${({ size }) => size === 'big' ? 'padding: 20px 40px;' : 'padding: 5px 10px;'}
   background-color: #dc3545;
 `
