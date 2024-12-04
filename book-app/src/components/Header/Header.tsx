@@ -9,6 +9,8 @@ import styled from 'styled-components';
 import { Avatar } from '../Avatar/Avatar';
 import { UserContext } from '../../contexts/UserContext';
 import { ThemeContext } from '../../contexts/ThemeContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 const HeaderWrapper = styled.div`
   ${StyledFooter} {
@@ -17,7 +19,7 @@ const HeaderWrapper = styled.div`
 `
 
 export const Header = ({ name }: HeaderProps) => {
-  const { data: user, setData } = useContext(UserContext);
+  const currentUser = useSelector<RootState>(state => state.user.currentUser);
   const { changeTheme }= useContext(ThemeContext);
   const [value, setValue] = useState(0);
 
@@ -34,7 +36,8 @@ export const Header = ({ name }: HeaderProps) => {
       <header className={styles.header}>
         <Nav />
         <p>Witaj w naszej aplikacji książkowej</p>
-        {user?.isLoggedIn ? <User>
+        {/* @ts-ignore  */}
+        {currentUser.isLoggedIn ? <User>
           <div onClick={() => setValue(v => v + 1)}>
             Jesteś zalogowany jako: <strong>{name}</strong>
             <Avatar name={name} src="https://placehold.co/150" />

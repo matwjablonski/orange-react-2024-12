@@ -10,6 +10,9 @@ import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 import { Modal } from './components/Modal/Modal';
 import { User, UserContext } from './contexts/UserContext';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from './store';
+import { login, logout } from './store/UserSlice'
 
 const BooksList = lazy(() => import('./components/Books/Books'))
 const ContactForm = lazy(() => import('./components/Forms/ContactForm').then(module => ({ default: module.ContactForm })));
@@ -20,9 +23,10 @@ function App() {
     lastName: '',
   })
   const uncontrolledRef = useRef<HTMLFormElement>(null);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [user, setUser] = useState<User>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const currentUser = useSelector<RootState>(state => state.user.currentUser);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({
@@ -32,12 +36,12 @@ function App() {
   }
 
   const handleLogin = () => {
-    console.log('zalogowano!')
-    setIsUserLoggedIn(true);
-    setUser({
-      name: "Mateusz",
-      isLoggedIn: true,
-    })
+    // @ts-ignore
+    if (currentUser.isLoggedIn) {
+      dispatch(logout());
+    } else {
+      dispatch(login('Mateusz'));
+    }
   }
 
   const handleUncontrolledChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,57 +57,54 @@ function App() {
 
   return (
     <ThemeProvider>
-      <UserContext.Provider value={{
-        data: user,
-        setData: setUser,
-      }}>
-        <div>
-          <Modal isOpen={isModalOpen} handleClose={handleClose}>
-            <button type="button" onClick={handleLogin}>{isUserLoggedIn ? 'Wyloguj' : 'Zaloguj'}</button>
-          </Modal>
-          <button onClick={() => setIsModalOpen(true)}>Logowanie / Rejestracja</button>
-          <Header name="Mateuszu" />
-          <main>
-            <form ref={uncontrolledRef}>
-            <label>
-              Pole niekontrolowane:
-              <input onChange={handleUncontrolledChange}/>
-            </label>
-            </form>
-            <label>
-              Pole kontrolowane:
-              <input value={values.lastName} name="lastName" onChange={handleChange} />
-            </label>
-            <Container>
-              <Routes>
-                <Route path="app">
-                  <Route index element={<Home />} />
-                  <Route path="books" element={
-                    <Suspense fallback={<div>Ładowanie widoku książek...</div>}>
-                      <BooksList />
-                    </Suspense>
-                  } />
-                  <Route
-                    path="readers"
-                    element={
-                      <ProtectedRoute isAuthorized={isUserLoggedIn}><Readers /></ProtectedRoute>
-                    }
-                  />
-                </Route>
+      <div>
+        <Modal isOpen={isModalOpen} handleClose={handleClose}>
 
-                <Route path="page">
-                  <Route path="contact" element={
-                    <Suspense fallback={<div>Trwa ładownie formularza...</div>}>
-                      <ContactForm />
-                    </Suspense>}
-                  />
-                </Route>
-              </Routes>
-            </Container>
-          </main>
-          <StyledFooter />
-        </div>
-      </UserContext.Provider>
+          {/* @ts-ignore */}
+          {currentUser ? <button type="button" onClick={handleLogin}>{currentUser.isLoggedIn ? 'Wyloguj' : 'Zaloguj'}</button> : null}
+        </Modal>
+        <button onClick={() => setIsModalOpen(true)}>Logowanie / Rejestracja</button>
+        <Header name="Mateuszu" />
+        <main>
+          <form ref={uncontrolledRef}>
+          <label>
+            Pole niekontrolowane:
+            <input onChange={handleUncontrolledChange}/>
+          </label>
+          </form>
+          <label>
+            Pole kontrolowane:
+            <input value={values.lastName} name="lastName" onChange={handleChange} />
+          </label>
+          <Container>
+            <Routes>
+              <Route path="app">
+                <Route index element={<Home />} />
+                <Route path="books" element={
+                  <Suspense fallback={<div>Ładowanie widoku książek...</div>}>
+                    <BooksList />
+                  </Suspense>
+                } />
+                <Route
+                  path="readers"
+                  // @ts-ignore
+                  element={<ProtectedRoute isAuthorized={currentUser.isLoggedIn}><Readers /></ProtectedRoute>
+                  }
+                />
+              </Route>
+
+              <Route path="page">
+                <Route path="contact" element={
+                  <Suspense fallback={<div>Trwa ładownie formularza...</div>}>
+                    <ContactForm />
+                  </Suspense>}
+                />
+              </Route>
+            </Routes>
+          </Container>
+        </main>
+        <StyledFooter />
+      </div>
     </ThemeProvider>
   );
 }
