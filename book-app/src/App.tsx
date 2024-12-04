@@ -11,6 +11,7 @@ import { Container } from './components/Container/Container';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 import { Modal } from './components/Modal/Modal';
 import { User, UserContext } from './contexts/UserContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 function App() {
   const [ values, setValues ] = useState({
@@ -50,49 +51,51 @@ function App() {
   }
 
   return (
-    <UserContext.Provider value={{
-      data: user,
-      setData: setUser,
-    }}>
-      <div>
-        <Modal isOpen={isModalOpen} handleClose={handleClose}>
-          <button type="button" onClick={handleLogin}>{isUserLoggedIn ? 'Wyloguj' : 'Zaloguj'}</button>
-        </Modal>
-        <button onClick={() => setIsModalOpen(true)}>Logowanie / Rejestracja</button>
-        <Header name="Mateuszu" />
-        <main>
-          <form ref={uncontrolledRef}>
-          <label>
-            Pole niekontrolowane:
-            <input onChange={handleUncontrolledChange}/>
-          </label>
-          </form>
-          <label>
-            Pole kontrolowane:
-            <input value={values.lastName} name="lastName" onChange={handleChange} />
-          </label>
-          <Container>
-            <Routes>
-              <Route path="app">
-                <Route index element={<Home />} />
-                <Route path="books" element={<BooksList />} />
-                <Route
-                  path="readers"
-                  element={
-                    <ProtectedRoute isAuthorized={isUserLoggedIn}><Readers /></ProtectedRoute>
-                  }
-                />
-              </Route>
+    <ThemeProvider>
+      <UserContext.Provider value={{
+        data: user,
+        setData: setUser,
+      }}>
+        <div>
+          <Modal isOpen={isModalOpen} handleClose={handleClose}>
+            <button type="button" onClick={handleLogin}>{isUserLoggedIn ? 'Wyloguj' : 'Zaloguj'}</button>
+          </Modal>
+          <button onClick={() => setIsModalOpen(true)}>Logowanie / Rejestracja</button>
+          <Header name="Mateuszu" />
+          <main>
+            <form ref={uncontrolledRef}>
+            <label>
+              Pole niekontrolowane:
+              <input onChange={handleUncontrolledChange}/>
+            </label>
+            </form>
+            <label>
+              Pole kontrolowane:
+              <input value={values.lastName} name="lastName" onChange={handleChange} />
+            </label>
+            <Container>
+              <Routes>
+                <Route path="app">
+                  <Route index element={<Home />} />
+                  <Route path="books" element={<BooksList />} />
+                  <Route
+                    path="readers"
+                    element={
+                      <ProtectedRoute isAuthorized={isUserLoggedIn}><Readers /></ProtectedRoute>
+                    }
+                  />
+                </Route>
 
-              <Route path="page">
-                <Route path="contact" element={<ContactForm />} />
-              </Route>
-            </Routes>
-          </Container>
-        </main>
-        <StyledFooter />
-      </div>
-    </UserContext.Provider>
+                <Route path="page">
+                  <Route path="contact" element={<ContactForm />} />
+                </Route>
+              </Routes>
+            </Container>
+          </main>
+          <StyledFooter />
+        </div>
+      </UserContext.Provider>
+    </ThemeProvider>
   );
 }
 

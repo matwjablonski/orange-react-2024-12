@@ -8,6 +8,7 @@ import { Footer, StyledFooter } from '../Footer/Footer';
 import styled from 'styled-components';
 import { Avatar } from '../Avatar/Avatar';
 import { UserContext } from '../../contexts/UserContext';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 const HeaderWrapper = styled.div`
   ${StyledFooter} {
@@ -17,6 +18,7 @@ const HeaderWrapper = styled.div`
 
 export const Header = ({ name }: HeaderProps) => {
   const { data: user, setData } = useContext(UserContext);
+  const { changeTheme }= useContext(ThemeContext);
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ export const Header = ({ name }: HeaderProps) => {
           <div onClick={() => setValue(v => v + 1)}>
             Jesteś zalogowany jako: <strong>{name}</strong>
             <Avatar name={name} src="https://placehold.co/150" />
-
+            <button onClick={changeTheme}>Zmień theme</button>  
           </div>
         </User> : null}
         <StyledFooter />
