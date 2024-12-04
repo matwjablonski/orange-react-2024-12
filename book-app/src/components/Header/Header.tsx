@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { User } from '../User/User';
 import { HeaderProps } from './types';
@@ -7,6 +7,7 @@ import styles from './Header.module.scss';
 import { Footer, StyledFooter } from '../Footer/Footer';
 import styled from 'styled-components';
 import { Avatar } from '../Avatar/Avatar';
+import { UserContext } from '../../contexts/UserContext';
 
 const HeaderWrapper = styled.div`
   ${StyledFooter} {
@@ -14,7 +15,8 @@ const HeaderWrapper = styled.div`
   }
 `
 
-export const Header = ({ name, onLogin, isUserLoggedIn }: HeaderProps) => {
+export const Header = ({ name }: HeaderProps) => {
+  const { data: user, setData } = useContext(UserContext);
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -30,14 +32,13 @@ export const Header = ({ name, onLogin, isUserLoggedIn }: HeaderProps) => {
       <header className={styles.header}>
         <Nav />
         <p>Witaj w naszej aplikacji książkowej</p>
-        {isUserLoggedIn ? <User>
+        {user?.isLoggedIn ? <User>
           <div onClick={() => setValue(v => v + 1)}>
             Jesteś zalogowany jako: <strong>{name}</strong>
             <Avatar name={name} src="https://placehold.co/150" />
 
           </div>
         </User> : null}
-        <button type="button" onClick={onLogin}>{isUserLoggedIn ? 'Wyloguj' : 'Zaloguj'}</button>
         <StyledFooter />
       </header>
     </HeaderWrapper>
