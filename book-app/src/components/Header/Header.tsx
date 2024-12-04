@@ -6,6 +6,7 @@ import { Nav } from '../Nav/Nav';
 import styles from './Header.module.scss';
 import { Footer, StyledFooter } from '../Footer/Footer';
 import styled from 'styled-components';
+import { Avatar } from '../Avatar/Avatar';
 
 const HeaderWrapper = styled.div`
   ${StyledFooter} {
@@ -38,6 +39,8 @@ export const Header = ({ name, onLogin }: HeaderProps) => {
         {isUserLoggedIn ? <User>
           <div onClick={() => setValue(v => v + 1)}>
             Jesteś zalogowany jako: <strong>{name}</strong>
+            <Avatar name={name} src="https://placehold.co/150" />
+
           </div>
         </User> : null}
         <button type="button" onClick={handleLogin}>{isUserLoggedIn ? 'Wyloguj' : 'Zaloguj'}</button>

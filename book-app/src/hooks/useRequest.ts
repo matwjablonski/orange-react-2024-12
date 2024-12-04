@@ -6,7 +6,7 @@ type ReturnUseRequest<T> = {
   error: Error | null;
 }
 
-export const useRequest = <T = []>(url: string): ReturnUseRequest<T> => {
+export const useRequest = <T = []>(endpoint: string): ReturnUseRequest<T> => {
   const [data, setData] = useState<T>({} as T);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
@@ -14,7 +14,7 @@ export const useRequest = <T = []>(url: string): ReturnUseRequest<T> => {
   const fetchData = async () => {
     setLoading(true)
     try {
-      const response = await fetch(url);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`);
       const data: T = await response.json();
       
       setData(data);

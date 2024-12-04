@@ -7,7 +7,7 @@ export const Button = styled.button`
 `
 
 type ButtonReverseProps = {
-  size: 'big' | 'small';
+  size?: 'big' | 'small';
 };
 
 export const ButtonReverse = styled(Button)<ButtonReverseProps>`
