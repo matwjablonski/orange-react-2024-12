@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, useTransition } from 'react';
 import { BookType } from './types';
 import { useRequest } from '../../hooks/useRequest';
 
-export const BooksList = () => {
+const BooksList = () => {
   const listRef = useRef<HTMLUListElement>(null);
   const [message, setMessage] = useState('');
   const [myBooks, setMyBooks] = useState<BookType[]>([]);
@@ -90,3 +90,5 @@ export const BooksList = () => {
 //     related: PropTypes.arrayOf(PropTypes.string).isRequired,
 //   })).isRequired,
 // }
+
+export default BooksList;
