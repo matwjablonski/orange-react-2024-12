@@ -19,7 +19,7 @@ const HeaderWrapper = styled.div`
 `
 
 export const Header = ({ name }: HeaderProps) => {
-  const currentUser = useSelector<RootState>(state => state.user.currentUser);
+  const currentUser = useSelector((state: RootState) => state.user.currentUser);
   const { changeTheme }= useContext(ThemeContext);
   const [value, setValue] = useState(0);
 
@@ -36,8 +36,7 @@ export const Header = ({ name }: HeaderProps) => {
       <header className={styles.header}>
         <Nav />
         <p>Witaj w naszej aplikacji książkowej</p>
-        {/* @ts-ignore  */}
-        {currentUser.isLoggedIn ? <User>
+           {currentUser.isLoggedIn ? <User>
           <div onClick={() => setValue(v => v + 1)}>
             Jesteś zalogowany jako: <strong>{name}</strong>
             <Avatar name={name} src="https://placehold.co/150" />

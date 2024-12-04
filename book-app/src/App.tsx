@@ -26,7 +26,7 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const dispatch = useDispatch();
-  const currentUser = useSelector<RootState>(state => state.user.currentUser);
+  const currentUser = useSelector((state: RootState) => state.user.currentUser);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({
@@ -36,7 +36,6 @@ function App() {
   }
 
   const handleLogin = () => {
-    // @ts-ignore
     if (currentUser.isLoggedIn) {
       dispatch(logout());
     } else {
@@ -59,8 +58,6 @@ function App() {
     <ThemeProvider>
       <div>
         <Modal isOpen={isModalOpen} handleClose={handleClose}>
-
-          {/* @ts-ignore */}
           {currentUser ? <button type="button" onClick={handleLogin}>{currentUser.isLoggedIn ? 'Wyloguj' : 'Zaloguj'}</button> : null}
         </Modal>
         <button onClick={() => setIsModalOpen(true)}>Logowanie / Rejestracja</button>
@@ -87,7 +84,6 @@ function App() {
                 } />
                 <Route
                   path="readers"
-                  // @ts-ignore
                   element={<ProtectedRoute isAuthorized={currentUser.isLoggedIn}><Readers /></ProtectedRoute>
                   }
                 />
