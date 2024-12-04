@@ -1,9 +1,9 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Form } from './Form'
 import { Input } from './Input'
 import { cleanForm } from '../../utils/form';
 
-export const ContactForm = () => {
+const ContactForm = () => {
   const firstInputRef = useRef<HTMLInputElement>(null);
   const [ values, setValues ] = useState({
     name: '',
@@ -58,3 +58,5 @@ export const ContactForm = () => {
     </div>
   );
 };
+
+export default ContactForm;

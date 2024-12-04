@@ -1,7 +1,6 @@
 import React, { ChangeEvent, lazy, Suspense, useRef, useState } from 'react';
 import { Header } from './components/Header/Header';
 import { Footer, StyledFooter } from './components/Footer/Footer';
-import { ContactForm } from './components/Forms/ContactForm';
 import { Readers } from './components/Readers/Readers';
 import { Route, Routes } from 'react-router';
 import { Home } from './components/Home/Home';
@@ -13,6 +12,7 @@ import { User, UserContext } from './contexts/UserContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 const BooksList = lazy(() => import('./components/Books/Books'));
+const ContactForm = lazy(() => import('./components/Forms/ContactForm'));
 
 function App() {
   const [ values, setValues ] = useState({
@@ -75,24 +75,30 @@ function App() {
               <input value={values.lastName} name="lastName" onChange={handleChange} />
             </label>
             <Container>
-              <Suspense fallback={<div>Ładowanie...</div>}>
-                <Routes>
-                  <Route path="app">
-                    <Route index element={<Home />} />
-                    <Route path="books" element={<BooksList />} />
-                    <Route
-                      path="readers"
-                      element={
-                        <ProtectedRoute isAuthorized={isUserLoggedIn}><Readers /></ProtectedRoute>
-                      }
-                    />
-                  </Route>
+              <Routes>
+                <Route path="app">
+                  <Route index element={<Home />} />
+                  <Route path="books" element={
+                    <Suspense fallback={<div>Ładowanie widoku książek...</div>}>
+                      <BooksList />
+                    </Suspense>
+                  } />
+                  <Route
+                    path="readers"
+                    element={
+                      <ProtectedRoute isAuthorized={isUserLoggedIn}><Readers /></ProtectedRoute>
+                    }
+                  />
+                </Route>
 
-                  <Route path="page">
-                    <Route path="contact" element={<ContactForm />} />
-                  </Route>
-                </Routes>
-              </Suspense>
+                <Route path="page">
+                  <Route path="contact" element={
+                    <Suspense fallback={<div>Trwa ładownie formularza...</div>}>
+                      <ContactForm />
+                    </Suspense>}
+                  />
+                </Route>
+              </Routes>
             </Container>
           </main>
           <StyledFooter />
