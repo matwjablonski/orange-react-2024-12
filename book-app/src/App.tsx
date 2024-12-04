@@ -9,6 +9,7 @@ import { Home } from './components/Home/Home';
 import { BookDetails } from './components/BookDetails/BookDetails';
 import { Container } from './components/Container/Container';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
+import { Modal } from './components/Modal/Modal';
 
 function App() {
   const [ values, setValues ] = useState({
@@ -17,6 +18,7 @@ function App() {
   })
   const uncontrolledRef = useRef<HTMLFormElement>(null);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({
@@ -37,9 +39,15 @@ function App() {
     }
   }
 
+  const handleClose = () => {
+    setIsModalOpen(false);
+  }
+
   return (
     <div>
+      <Modal isOpen={isModalOpen} handleClose={handleClose} />
       <Header name="Mateuszu" onLogin={handleLogin} isUserLoggedIn={isUserLoggedIn} />
+      <button onClick={() => setIsModalOpen(true)}>Otwórz modal</button>
       <main>
         <form ref={uncontrolledRef}>
         <label>
