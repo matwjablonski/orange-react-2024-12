@@ -14,14 +14,8 @@ const HeaderWrapper = styled.div`
   }
 `
 
-export const Header = ({ name, onLogin }: HeaderProps) => {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+export const Header = ({ name, onLogin, isUserLoggedIn }: HeaderProps) => {
   const [value, setValue] = useState(0);
-
-  const handleLogin = () => {
-    setIsUserLoggedIn((prevState) => !prevState);
-    onLogin && onLogin();
-  };
 
   useEffect(() => {
     console.log('2');
@@ -43,8 +37,7 @@ export const Header = ({ name, onLogin }: HeaderProps) => {
 
           </div>
         </User> : null}
-        <button type="button" onClick={handleLogin}>{isUserLoggedIn ? 'Wyloguj' : 'Zaloguj'}</button>
-
+        <button type="button" onClick={onLogin}>{isUserLoggedIn ? 'Wyloguj' : 'Zaloguj'}</button>
         <StyledFooter />
       </header>
     </HeaderWrapper>

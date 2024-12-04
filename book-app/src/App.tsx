@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router';
 import { Home } from './components/Home/Home';
 import { BookDetails } from './components/BookDetails/BookDetails';
 import { Container } from './components/Container/Container';
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   const [ values, setValues ] = useState({
@@ -15,12 +16,18 @@ function App() {
     lastName: '',
   })
   const uncontrolledRef = useRef<HTMLFormElement>(null);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
       [e.target.name]: e.target.value,
     });
+  }
+
+  const handleLogin = () => {
+    console.log('zalogowano!')
+    setIsUserLoggedIn(true);
   }
 
   const handleUncontrolledChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +39,7 @@ function App() {
 
   return (
     <div>
-      <Header name="Mateuszu" onLogin={() => console.log('zalogowano!')} />
+      <Header name="Mateuszu" onLogin={handleLogin} isUserLoggedIn={isUserLoggedIn} />
       <main>
         <form ref={uncontrolledRef}>
         <label>
@@ -49,7 +56,12 @@ function App() {
             <Route path="app">
               <Route index element={<Home />} />
               <Route path="books" element={<BooksList />} />
-              <Route path="readers" element={<Readers />} />
+              <Route
+                path="readers"
+                element={
+                  <ProtectedRoute isAuthorized={isUserLoggedIn}><Readers /></ProtectedRoute>
+                }
+              />
             </Route>
 
             <Route path="page">

@@ -1,5 +1,5 @@
 import { Book } from './Book';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 import { BookType } from './types';
 import { useRequest } from '../../hooks/useRequest';
 
@@ -8,6 +8,7 @@ export const BooksList = () => {
   const [message, setMessage] = useState('');
   const [myBooks, setMyBooks] = useState<BookType[]>([]);
   const { isLoading, data, error } = useRequest('/data.json', true);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     setMyBooks(data);
@@ -56,7 +57,9 @@ export const BooksList = () => {
   const handleRemoveBook = (id: number) => {
     const newBooksArray = myBooks.filter((book) => book.id !== id);
 
-    setMyBooks(newBooksArray);
+    startTransition(() => {
+      setMyBooks(newBooksArray)
+    })
   }
 
   if (isLoading) {
@@ -69,6 +72,7 @@ export const BooksList = () => {
 
   return (
     <div>
+      {isPending && <p>Trwa aktualizacja danych...</p>}
       {message && <p>{message}</p>}
       <ul ref={listRef}>
         {myBooks.length && myBooks.map((book) => (<Book key={`${book.title}-${book.author}`} {...book} onRemove={handleRemoveBook} />))}
