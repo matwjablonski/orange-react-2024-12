@@ -6,7 +6,7 @@ import { useRequest } from '../../hooks/useRequest';
 export const Readers = () => {
   const [readersAreVisible, setReadersAreVisible] = useState(false);
   const { log } = useLog();
-  const { isLoading, data: readers, error } = useRequest<Reader[]>('https://jsonplaceholder.typicode.com/users');
+  const { isLoading, data: readers, error } = useRequest<Reader[]>('users');
 
   const handleSwitchReadersVisibility = () => {
     setReadersAreVisible((prev) => !prev);

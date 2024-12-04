@@ -7,7 +7,7 @@ export const BooksList = () => {
   const listRef = useRef<HTMLUListElement>(null);
   const [message, setMessage] = useState('');
   const [myBooks, setMyBooks] = useState<BookType[]>([]);
-  const { isLoading, data, error } = useRequest('/data.json');
+  const { isLoading, data, error } = useRequest('/data.json', true);
 
   useEffect(() => {
     setMyBooks(data);
