@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BookProps } from './types';
+import { Button, ButtonReverse } from '../Button/Button';
 
 export const Book = ({ title, author, publicationDate, id, onRemove }: BookProps) => {
   const [isRead, setIsRead] = useState(false);
@@ -14,7 +15,7 @@ export const Book = ({ title, author, publicationDate, id, onRemove }: BookProps
     setVotes((prevState) => prevState + 1);
   }
 
-  const buttonStyles = { backgroundColor: 'beige', color: 'darkblue' };
+  // const buttonStyles = { backgroundColor: 'beige', color: 'darkblue' };
 
   return (
     <li>
@@ -22,9 +23,9 @@ export const Book = ({ title, author, publicationDate, id, onRemove }: BookProps
         {votes > 0 && <div>Liczba głosów: {votes}</div>}
         { isRead && <div><em>Przeczytana</em></div> }
         {title} by {author} ({publicationDate as string})
-        <button type="button" style={buttonStyles} onClick={handleRead}>{isRead ? 'Usuń z przeczytanych' : 'Dodaj do przeczytanych'}</button>
-        <button type="button" onClick={handleUpdateVotes}>Głosuj na tę pozycję</button>
-        <button type="button" onClick={() => onRemove(id)}>Usuń</button>    
+        <ButtonReverse type="button" onClick={handleRead}>{isRead ? 'Usuń z przeczytanych' : 'Dodaj do przeczytanych'}</ButtonReverse>
+        <ButtonReverse size="big" type="button" onClick={handleUpdateVotes}>Głosuj na tę pozycję</ButtonReverse>
+        <Button type="button" onClick={() => onRemove(id)}>Usuń</Button>    
       </div>
     </li>
   )

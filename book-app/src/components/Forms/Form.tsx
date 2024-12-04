@@ -16,7 +16,7 @@ export const Form = ({ onSubmit, children }: PropsWithChildren<FormProps>) => {
   return (
     <form onSubmit={handleSubmit} ref={formRef}>
       {children}
-      <button type="submit">Wyślij</button>
+      <button type="submit" className="mt-10 text-center flex ">Wyślij</button>
     </form>
   )
 }
